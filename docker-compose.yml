@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  cloudflare-manager:
+    build: .
+    container_name: cloudflare-manager
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=${JWT_SECRET:-change-this-secret-key}
+      - DB_PATH=/app/data/data.db
+      - DEBUG_CF_API=${DEBUG_CF_API:-false}
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
