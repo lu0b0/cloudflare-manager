@@ -115,16 +115,6 @@ export interface WorkerBinding {
   bucketName?: string;
 }
 
-// 脚本模板
-export interface ScriptTemplate {
-  id: string;
-  name: string;
-  description?: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 // 审计日志
 export interface AuditLog {
   id: string;
